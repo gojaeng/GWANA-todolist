@@ -12,13 +12,14 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <div>
       <GlobalStyle />
       <TodoTemplate>
-        <TodoHead />
-        <TodoList />  
+        <TodoHead/>
+        <TodoList/>
+
       </TodoTemplate>
-    </>
+    </div>
   );
 }
 
