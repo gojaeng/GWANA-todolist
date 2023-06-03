@@ -1,12 +1,25 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { MdDone, MdDelete } from "react-icons/md";
+import { MdDone, MdDelete, MdEdit } from "react-icons/md";
 import { useTodoDispatch } from "../TodoContext";
+import { useState } from "react";
 
 const Remove = styled.div`
   display: flex;
   align-items: center;
-  justify=content: center;
+  justify-content: center;
+  color: #dee2e6;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: #ff6b6b;
+  }
+  display: none;
+`;
+const Edit = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
@@ -22,9 +35,13 @@ const TodoItemBlock = styled.div`
     padding-top:12px;
     padding-bottom:12px;
     &:hover{
+        ${Edit}{
+          display:initial;
+        }
         ${Remove}{
             display:initial;
         }
+
     }
 `;
 
@@ -59,19 +76,40 @@ const Text = styled.div`
 `;
 
 function TodoItem({ id, done, text }) {
+  const [editing, setEditing] = useState(false);
+  const [newText, setNewText] = useState(text);
+
   const dispatch = useTodoDispatch();
   const onToggle = () => dispatch({ type: "TOGGLE", id });
   const onRemove = () => dispatch({ type: "REMOVE", id });
+  const onEdit = () => {
+    if (editing) {
+      dispatch({ type: "SAVE", id, text: newText });
+    }
+    setEditing(!editing);
+  };
+  const onChange = (e) => {
+    setNewText(e.target.value);
+  };
+
   return (
     <TodoItemBlock>
       <CheckCircle done={done} onClick={onToggle}>
         {done && <MdDone />}
       </CheckCircle>
-      <Text done={done}>{text}</Text>
+      {editing ? (
+        <input type="text" value={newText} onChange={onChange} />
+      ) : (
+        <Text done={done}>{text}</Text>
+      )}
       <Remove onClick={onRemove}>
         <MdDelete />
       </Remove>
+      <Edit onClick={onEdit}>
+        <MdEdit />
+      </Edit>
     </TodoItemBlock>
   );
 }
+
 export default React.memo(TodoItem);
