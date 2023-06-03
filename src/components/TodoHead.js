@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTodoState } from "../TodoContext";
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
@@ -32,6 +33,8 @@ const currentDayOfWeek = currentDate.toLocaleDateString(undefined, {
 });
 
 function TodoHead() {
+  const todos = useTodoState();
+  console.log(todos);
   return (
     <TodoHeadBlock>
       <h1>{formattedDate}</h1>
