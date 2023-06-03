@@ -28,6 +28,15 @@ const Edit = styled.div`
   }
   display: none;
 `;
+const Input = styled.input`
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  width: 77%;
+  outline: none;
+  font-size: 18px;
+  box-sizing: border-box;
+`;
 
 const TodoItemBlock = styled.div`
     display:flex;
@@ -98,7 +107,12 @@ function TodoItem({ id, done, text }) {
         {done && <MdDone />}
       </CheckCircle>
       {editing ? (
-        <input type="text" value={newText} onChange={onChange} />
+        <Input
+          autoFocus
+          placeholder="수정할 내용을 입력하세요"
+          onChange={onChange}
+          text={text}
+        />
       ) : (
         <Text done={done}>{text}</Text>
       )}
