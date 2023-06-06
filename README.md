@@ -2,5 +2,10 @@
 <br>
 #Gwana 프로젝트 공부용
 <br>
-<img src='todolist.jpg'>
-<img src='todolist2.jpg'>
+
+<table>
+    <tr>
+        <td><img src='todolist.jpg'></td>
+        <td><img src='todolist.jpg'></td>
+    </tr>
+</table>
